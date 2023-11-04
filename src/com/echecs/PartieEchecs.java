@@ -2,7 +2,7 @@ package com.echecs;
 
 import com.echecs.pieces.Piece;
 import com.echecs.util.EchecsUtil;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Représente une partie de jeu d'échecs. Orcheste le déroulement d'une partie :
