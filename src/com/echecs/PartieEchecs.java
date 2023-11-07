@@ -61,7 +61,16 @@ public class PartieEchecs {
      * @return boolean true, si le déplacement a été effectué avec succès, false sinon
      */
     public boolean deplace(Position initiale, Position finale) {
-         throw new NotImplementedException();
+        Piece a = echiquier[EchecsUtil.indiceLigne(initiale)][EchecsUtil.indiceColonne(initiale)];
+        Piece b = echiquier[EchecsUtil.indiceLigne(finale)][EchecsUtil.indiceColonne(finale)];
+if(a.equals(null)){return false;}
+if(EchecsUtil.indiceLigne(initiale)>8 || EchecsUtil.indiceLigne(initiale)<0 || EchecsUtil.indiceLigne(finale)>8 || EchecsUtil.indiceLigne(finale)<0)
+{return false;}
+if(tour!=(a.getCouleur())){return false;}
+if(b.getCouleur()=='b' || b.getCouleur()=='n'){
+    if(b.getCouleur()==a.getCouleur()){return false;}
+}
+return true;
     }
 
     /**
@@ -77,7 +86,9 @@ public class PartieEchecs {
      * si le roi blanc est en échec, tout autre caractère, sinon.
      */
     public char estEnEchec() {
-            throw new NotImplementedException();
+            // creer une liste chainee avec toutes les pieces; looper pour verifier si on peut appeler
+        //    deplacer(position de la piece iterer, position du roi opposee) si on peut, return echec
+   return 'b';
     }
     /**
      * Retourne la couleur n ou b du joueur qui a la main.
