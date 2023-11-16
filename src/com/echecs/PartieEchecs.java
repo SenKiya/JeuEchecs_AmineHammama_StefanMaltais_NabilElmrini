@@ -149,10 +149,7 @@ public class PartieEchecs {
                 }
             }
         }
-        if(result!='x'){
-            return result;
-        }
-        return 'a';
+        return result;
     }
     /**
      * Retourne la couleur n ou b du joueur qui a la main.
