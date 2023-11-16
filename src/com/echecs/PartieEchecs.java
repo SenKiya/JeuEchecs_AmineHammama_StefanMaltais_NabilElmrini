@@ -119,6 +119,7 @@ public class PartieEchecs {
         Position roiPos;
         Position piecePos;
         char roicouleur;
+        char result = 'x';
         for(int i = 0; i<echiquier.length;i++){
             for(int j = 0; j<echiquier[i].length;j++){
                 if(echiquier[i][j]!=null){
@@ -131,7 +132,12 @@ public class PartieEchecs {
                                 if(echiquier[n][m]!=null){
                                     piecePos = new Position(EchecsUtil.getColonne((byte)m), EchecsUtil.getLigne((byte) n));
                                     if(echiquier[n][m].peutSeDeplacer(piecePos,roiPos,echiquier)){
-                                        return roicouleur;
+                                        if(result == 'x'){
+                                            result = roicouleur;
+                                        }else{
+                                            result = echiquier[n][m].getCouleur();
+                                            return result;
+                                        }
                                     }
                                 }
 
@@ -142,6 +148,9 @@ public class PartieEchecs {
                     }
                 }
             }
+        }
+        if(result!='x'){
+            return result;
         }
         return 'a';
     }
