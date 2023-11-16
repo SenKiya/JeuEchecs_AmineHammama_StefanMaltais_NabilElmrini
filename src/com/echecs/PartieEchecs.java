@@ -128,10 +128,13 @@ public class PartieEchecs {
 
                         for(int n = 0; n<echiquier.length;n++) {
                             for (int m = 0; m < echiquier[i].length; m++) {
-                                piecePos = new Position(EchecsUtil.getColonne((byte)m), EchecsUtil.getLigne((byte) n));
-                                if(echiquier[n][m].peutSeDeplacer(piecePos,roiPos,echiquier)){
-                                    return roicouleur;
+                                if(echiquier[n][m]!=null){
+                                    piecePos = new Position(EchecsUtil.getColonne((byte)m), EchecsUtil.getLigne((byte) n));
+                                    if(echiquier[n][m].peutSeDeplacer(piecePos,roiPos,echiquier)){
+                                        return roicouleur;
+                                    }
                                 }
+
 
                             }
                         }
