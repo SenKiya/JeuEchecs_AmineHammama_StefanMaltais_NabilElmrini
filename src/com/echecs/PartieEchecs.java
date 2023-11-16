@@ -1,7 +1,8 @@
 package com.echecs;
 
-import com.echecs.pieces.Piece;
+import com.echecs.pieces.*;
 import com.echecs.util.EchecsUtil;
+import jdk.nio.Channels;
 //import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -34,6 +35,32 @@ public class PartieEchecs {
     public PartieEchecs() {
         echiquier = new Piece[8][8];
         //Placement des pièces :
+        echiquier[0][0] = new Rook('n');
+        echiquier[0][1] = new Horse('n');
+        echiquier[0][2] = new Bishop('n');
+        echiquier[0][3] = new King('n');
+        echiquier[0][4] = new Queen('n');
+        echiquier[0][5] = new Bishop('n');
+        echiquier[0][6] = new Horse('n');
+        echiquier[0][7] = new Rook('n');
+
+        for(int i=0; i<8;i++){
+            echiquier[1][i]=new Pawn('n');
+        }
+
+        echiquier[7][0] = new Rook('b');
+        echiquier[7][1] = new Horse('b');
+        echiquier[7][2] = new Bishop('b');
+        echiquier[7][3] = new King('b');
+        echiquier[7][4] = new Queen('b');
+        echiquier[7][5] = new Bishop('b');
+        echiquier[7][6] = new Horse('b');
+        echiquier[7][7] = new Rook('b');
+
+        for(int i=0; i<8;i++){
+            echiquier[6][i]=new Pawn('b');
+        }
+
 
     }
 
@@ -64,14 +91,14 @@ public class PartieEchecs {
         Piece a = echiquier[EchecsUtil.indiceLigne(initiale)][EchecsUtil.indiceColonne(initiale)];
         Piece b = echiquier[EchecsUtil.indiceLigne(finale)][EchecsUtil.indiceColonne(finale)];
         if(a.equals(b)){return false;}
-if(a.equals(null)){return false;}
-if(EchecsUtil.indiceLigne(initiale)>8 || EchecsUtil.indiceLigne(initiale)<0 || EchecsUtil.indiceLigne(finale)>8 || EchecsUtil.indiceLigne(finale)<0)
-{return false;}
-if(tour!=(a.getCouleur())){return false;}
-if(b.getCouleur()=='b' || b.getCouleur()=='n'){
-    if(b.getCouleur()==a.getCouleur()){return false;}
-}
-return true;
+        if(a.equals(null)){return false;}
+        if(EchecsUtil.indiceLigne(initiale)>8 || EchecsUtil.indiceLigne(initiale)<0 || EchecsUtil.indiceLigne(finale)>8 || EchecsUtil.indiceLigne(finale)<0)
+        {return false;}
+        if(tour!=(a.getCouleur())){return false;}
+        if(b.getCouleur()=='b' || b.getCouleur()=='n'){
+            if(b.getCouleur()==a.getCouleur()){return false;}
+        }
+        return true;
     }
 
     /**
@@ -89,7 +116,31 @@ return true;
     public char estEnEchec() {
             // creer une liste chainee avec toutes les pieces; looper pour verifier si on peut appeler
         //    deplacer(position de la piece iterer, position du roi opposee) si on peut, return echec
-   return 'b';
+        Position roiPos;
+        Position piecePos;
+        char roicouleur;
+        for(int i = 0; i<echiquier.length;i++){
+            for(int j = 0; j<echiquier[i].length;j++){
+                if(echiquier[i][j]!=null){
+                    if(echiquier[i][j] instanceof King){
+                        roiPos = new Position(EchecsUtil.getColonne((byte)j), EchecsUtil.getLigne((byte) i));
+                        roicouleur = echiquier[i][j].getCouleur();
+
+                        for(int n = 0; n<echiquier.length;n++) {
+                            for (int m = 0; m < echiquier[i].length; m++) {
+                                piecePos = new Position(EchecsUtil.getColonne((byte)m), EchecsUtil.getLigne((byte) n));
+                                if(echiquier[n][m].peutSeDeplacer(piecePos,roiPos,echiquier)){
+                                    return roicouleur;
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return 'a';
     }
     /**
      * Retourne la couleur n ou b du joueur qui a la main.
