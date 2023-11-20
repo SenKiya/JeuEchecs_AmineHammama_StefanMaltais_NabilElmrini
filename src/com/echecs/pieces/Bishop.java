@@ -1,7 +1,7 @@
 package com.echecs.pieces;
 
-import com.echecs.Position;
 import com.echecs.PartieEchecs;
+import com.echecs.Position;
 import com.echecs.util.EchecsUtil;
 
 public class Bishop extends Piece{
@@ -17,21 +17,26 @@ public class Bishop extends Piece{
         byte colonne2 = EchecsUtil.indiceColonne(pos2);
 
         PartieEchecs partieEchecs = new PartieEchecs();
-        if(partieEchecs.deplace(pos1,pos2)){
             if(pos1.estSurLaMemeDiagonaleQue(pos2)){
                 if(ligne1<ligne2 && colonne1<colonne2){
-                    int j=ligne1;
-                    for(int i = colonne1; i<colonne2;i++){
-                        if(echiquier[i][j]!=null){
+                    int j=ligne1+1;
+                    for(int i = colonne1+1; i<colonne2+1;i++){
+                        if(echiquier[j][i]!=null){
+                            if(echiquier[ligne1][colonne1].getCouleur()!=echiquier[j][i].getCouleur()&&i==colonne2){
+                                return true;
+                            }
                             return false;
                         }
                         j++;
                     }
                 }
                 else if(ligne1<ligne2 && colonne1>colonne2){
-                    int j=ligne1;
-                    for(int i = colonne1; i>colonne2;i--){
-                        if(echiquier[i][j]!=null){
+                    int j=ligne1+1;
+                    for(int i = colonne1-1; i>colonne2-1;i--){
+                        if(echiquier[j][i]!=null){
+                            if(echiquier[ligne1][colonne1].getCouleur()!=echiquier[j][i].getCouleur()&&i==colonne2){
+                                return true;
+                            }
                             return false;
                         }
                         j++;
@@ -40,28 +45,36 @@ public class Bishop extends Piece{
 
                 }
                 else if(ligne1>ligne2 && colonne1<colonne2){
-                    int j=ligne1;
-                    for(int i = colonne1; i<colonne2;i++){
-                        if(echiquier[i][j]!=null){
+                    int j=ligne1-1;
+                    for(int i = colonne1+1; i<colonne2+1;i++){
+                        if(echiquier[j][i]!=null){
+                            if(echiquier[ligne1][colonne1].getCouleur()!=echiquier[j][i].getCouleur()&&i==colonne2){
+                                return true;
+                            }
                             return false;
                         }
                         j--;
                     }
                 }
                 else if(ligne1>ligne2 && colonne1>colonne2){
-                    int j=ligne1;
-                    for(int i = colonne1; i>colonne2;i--){
-                        if(echiquier[i][j]!=null){
+                    int j=ligne1-1;
+                    for(int i = colonne1-1; i>colonne2-1;i--){
+                        if(echiquier[j][i]!=null){
+                            if(echiquier[ligne1][colonne1].getCouleur()!=echiquier[j][i].getCouleur()&&i==colonne2){
+                                return true;
+                            }
                             return false;
                         }
                         j--;
                     }
                 }
-                if(echiquier[colonne1][ligne1].getCouleur()!=echiquier[colonne2][ligne2].getCouleur()){
+                if(echiquier[ligne2][colonne2]==null){
+                    return true;
+                }else if(echiquier[ligne1][colonne1].getCouleur()!=echiquier[ligne2][colonne2].getCouleur()){
                     return true;
                 }
             }
-        }
+
 
 
 

@@ -14,7 +14,7 @@ import java.util.Vector;
  * @version 1.0
  * @since 2023-09-01
  */
-public class PartieEchecs {
+public class    PartieEchecs {
     /**
      * Grille du jeu d'échecs. La ligne 0 de la grille correspond à la ligne
      * 8 de l'échiquier. La colonne 0 de la grille correspond à la colonne a
